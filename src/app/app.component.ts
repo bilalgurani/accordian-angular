@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FaqService} from "./Service/faq-service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'accordian-angular';
+  selectedCardIndex: number | null = null;
+  faq: any[] | undefined;
+  constructor(private service: FaqService) {
+    this.faq = service.getFaq();
+  }
+
+  toggle(index: number) {
+    if (this.selectedCardIndex === index) {
+      this.selectedCardIndex = null; // Close the selected dropdown
+    } else {
+      this.selectedCardIndex = index; // Open the clicked dropdown
+    }
+  }
+
 }
